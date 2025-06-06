@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json({}));
 app.use(cors({
-  origin: process.env.FRONTEND_URL 
+  origin: "https://telegram-weather-bot-aa3a.onrender.com/" 
 }));
 const PORT = process.env.PORT || 3000;
 
