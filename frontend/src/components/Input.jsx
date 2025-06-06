@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Input({ placeholder,value, onChange, type = 'text' }) {
-  console.log("value and onChange is ",value)
+  //console.log("value and onChange is ",value)
   return (
     <div style={{ marginBottom: '12px' }}>
         <input

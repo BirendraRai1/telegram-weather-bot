@@ -31,7 +31,6 @@ export default function AdminPanel() {
   };
 
   const updateApiKey = async (apiKey,newkey,newValue) => {
-    console.log("newkey and newValue is ",newkey,newValue)
     try {
       await updateSetting(apiKey,newkey,newValue)
       setApiKey(newKey);
@@ -43,7 +42,7 @@ export default function AdminPanel() {
   };
 
   const toggleUser = async (userId, blocked) => {
-    console.log('inside toggleUser is',userId,blocked)
+   // console.log('inside toggleUser is',userId,blocked)
     try {
       await switchUser(userId,blocked);
       fetchData();
