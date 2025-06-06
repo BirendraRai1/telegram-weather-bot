@@ -25,6 +25,6 @@ connectDB();
 app.use('/admin', adminRouter);
 
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0",() => {
   console.log(`Admin panel running on port ${PORT}`);
 });
