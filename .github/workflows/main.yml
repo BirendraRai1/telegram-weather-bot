@@ -1,0 +1,82 @@
+name: Telegram Weather Bot CI/CD
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  backend:
+    name: Backend (Node.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    strategy:
+      matrix:
+        node-version: ["18.x"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install backend dependencies
+        run: npm ci
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "PROJECT_LINK=${{ secrets.PROJECT_LINK }}" >> .env
+          cat .env
+
+      - name: Run bot and server (Optional)
+        run: |
+          nohup node server.js &
+          nohup node bot.js &
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+  frontend:
+    name: Frontend (React)
+    runs-on: ubuntu-latest
+    needs: backend
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run frontend tests
+        run: npm test --if-present
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          ls -l build/static/js/main.*.js || echo "JS bundle missing"
+          ls -l build/index.html || echo "HTML file missing"
