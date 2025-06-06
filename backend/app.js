@@ -12,12 +12,12 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json({}));
-//app.use(cors());
-app.use(cors({
-  origin: FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: FRONTEND_URL,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 // Connect to database
 connectDB();
 
