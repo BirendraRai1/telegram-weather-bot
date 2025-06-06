@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const {PORT,FRONTEND_URL} = process.env
 const cors = require("cors");
 dotenv.config();
 const connectDB = require('./config/databaseConnection');
@@ -13,12 +14,10 @@ app.use(express.json());
 app.use(bodyParser.json({}));
 //app.use(cors());
 app.use(cors({
-  origin: 'https://telegram-weather-bot-aa3a.onrender.com',
+  origin: FRONTEND_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-const PORT = process.env.PORT || 3000;
-
 // Connect to database
 connectDB();
 
@@ -28,6 +27,6 @@ connectDB();
 app.use('/admin', adminRouter);
 
 
-app.listen(PORT,"0.0.0.0",() => {
+app.listen(PORT || 3000,"0.0.0.0",() => {
   console.log(`Admin panel running on port ${PORT}`);
 });
