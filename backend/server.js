@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json({}));
 app.use(cors({
-  origin: 'http://localhost:5173' 
+  origin: process.env.FRONTEND_URL 
 }));
 const PORT = process.env.PORT || 3000;
 
@@ -25,6 +25,6 @@ connectDB();
 app.use('/admin', adminRouter);
 
 
-app.listen(PORT, "0.0.0.0",() => {
+app.listen(PORT,() => {
   console.log(`Admin panel running on port ${PORT}`);
 });
