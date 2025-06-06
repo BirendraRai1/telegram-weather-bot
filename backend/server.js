@@ -11,9 +11,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json({}));
-app.use(cors({
-  origin: "https://telegram-weather-bot-aa3a.onrender.com/" 
-}));
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 // Connect to database
