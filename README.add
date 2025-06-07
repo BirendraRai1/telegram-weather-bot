@@ -1,0 +1,65 @@
+Project README: Telegram Weather Bot with Admin Panel
+
+A Node.js backend with React admin panel that allows users to subscribe to weather updates via Telegram. Admins can manage users and bot settings.
+
+Features
+1>User Subscription: Telegram bot interface for weather updates
+
+2>Admin Panel:
+
+  a)Manage users (block/delete)
+
+  b)Configure bot settings (API keys)
+3>Automated Testing: Backend tested with Jest & Supertest
+
+Technologies:-
+    Backend
+        Node.js/Express
+
+        node-telegram-bot-api
+
+        MongoDB/Mongoose
+
+        Jest/Supertest (testing)
+
+        Axios (weather API)
+    Frontend
+
+        React.js
+
+SetUp & Installation
+
+    1. Clone repository
+        git clone https://github.com/BirendraRai1/telegram-weather-bot
+
+    2. Backend setup
+        cd backend
+        npm install
+
+            a). create .env file in backend and fill the values for following variables
+                MONGODB_URI
+                ADMIN_EMAIL
+                ADMIN_PASSWORD
+                DB_USER
+                DB_PASSWORD
+                TELEGRAM_BOT_TOKEN
+                PORT
+                OPENWEATHER_API_KEY
+                DB_NAME
+                FRONTEND_URL
+            b). Run the project locally using npm run dev
+            c). Test the api using npm run test
+
+    3. Frontend SetUp:-
+            cd ../Frontend
+            npm install
+            a). create .env file in frontend and fill the values for following variables
+                VITE_BASE_URL
+                VITE_ADMIN_PASSWORD
+            b). Run the project locally using npm run dev
+
+    4. EndPoints
+
+            a).bot's telegram handle:-https://t.me/BiruMoniBot
+            b).Admin Panel Url:-https://telegram-weather-bot-aa3a.onrender.com/
+

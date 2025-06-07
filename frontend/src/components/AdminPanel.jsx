@@ -23,6 +23,7 @@ export default function AdminPanel() {
     try {
       const userRes = await getUsers()
       const keyRes = await getSettings();
+      
       setUsers(userRes.data);
       setApiKey(keyRes.data.key);
     } catch (err) {
